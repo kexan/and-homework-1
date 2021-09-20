@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">NMedia</string>
     <string name="text">Nmedia!</string>
+    <string name="avatar">Avatar</string>
+    <string name="menu">Menu</string>
+    <string name="like">Like</string>
 </resources>
