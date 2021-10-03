@@ -3,35 +3,135 @@ package repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dto.Post
+import kotlin.random.Random
 
 class PostRepositoryInMemoryImplementation : PostRepository {
 
     companion object {
-        private var defaultPost = Post(
-            author = "Сергей",
-            content = "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb\"\n",
-            published = "26 сентября в 13:57",
-            likes = 999,
-            comments = 10L,
-            reposts = 56L,
-            views = 20500L,
-            likedByMe = false
+        private var defaultPosts = listOf(
+            Post(
+                id = 9,
+                likes = Random.nextLong(10000),
+                reposts = Random.nextLong(1000),
+                comments = Random.nextLong(1000),
+                views = Random.nextLong(10000,1000000),
+                author = "Нетология. Университет интернет-профессий будущего",
+                content = "Освоение новой профессии — это не только открывающиеся возможности и перспективы, но и настоящий вызов самому себе. Приходится выходить из зоны комфорта и перестраивать привычный образ жизни: менять распорядок дня, искать время для занятий, быть готовым к возможным неудачам в начале пути. В блоге рассказали, как избежать стресса на курсах профпереподготовки → http://netolo.gy/fPD",
+                published = "23 сентября в 10:12",
+                likedByMe = false
+            ),
+            Post(
+                id = 8,
+                likes = Random.nextLong(10000),
+                reposts = Random.nextLong(1000),
+                comments = Random.nextLong(1000),
+                views = Random.nextLong(10000,1000000),
+                author = "Нетология. Университет интернет-профессий будущего",
+                content = "Делиться впечатлениями о любимых фильмах легко, а что если рассказать так, чтобы все заскучали \uD83D\uDE34\n",
+                published = "22 сентября в 10:14",
+                likedByMe = false
+            ),
+            Post(
+                id = 7,
+                likes = Random.nextLong(10000),
+                reposts = Random.nextLong(1000),
+                comments = Random.nextLong(1000),
+                views = Random.nextLong(10000,1000000),
+                author = "Нетология. Университет интернет-профессий будущего",
+                content = "Таймбоксинг — отличный способ навести порядок в своём календаре и разобраться с делами, которые долго откладывали на потом. Его главный принцип — на каждое дело заранее выделяется определённый отрезок времени. В это время вы работаете только над одной задачей, не переключаясь на другие. Собрали советы, которые помогут внедрить таймбоксинг \uD83D\uDC47\uD83C\uDFFB",
+                published = "22 сентября в 10:12",
+                likedByMe = false
+            ),
+            Post(
+                id = 6,
+                likes = Random.nextLong(10000),
+                reposts = Random.nextLong(1000),
+                comments = Random.nextLong(1000),
+                views = Random.nextLong(10000,1000000),
+                author = "Нетология. Университет интернет-профессий будущего",
+                content = "\uD83D\uDE80 24 сентября стартует новый поток бесплатного курса «Диджитал-старт: первый шаг к востребованной профессии» — за две недели вы попробуете себя в разных профессиях и определите, что подходит именно вам → http://netolo.gy/fQ",
+                published = "21 сентября в 10:12",
+                likedByMe = false
+            ),
+            Post(
+                id = 5,
+                likes = Random.nextLong(10000),
+                reposts = Random.nextLong(1000),
+                comments = Random.nextLong(1000),
+                views = Random.nextLong(10000,1000000),
+                author = "Нетология. Университет интернет-профессий будущего",
+                content = "Диджитал давно стал частью нашей жизни: мы общаемся в социальных сетях и мессенджерах, заказываем еду, такси и оплачиваем счета через приложения.",
+                published = "20 сентября в 10:14",
+                likedByMe = false
+            ),
+            Post(
+                id = 4,
+                likes = Random.nextLong(10000),
+                reposts = Random.nextLong(1000),
+                comments = Random.nextLong(1000),
+                views = Random.nextLong(10000,1000000),
+                author = "Нетология. Университет интернет-профессий будущего",
+                content = "Большая афиша мероприятий осени: конференции, выставки и хакатоны для жителей Москвы, Ульяновска и Новосибирска \uD83D\uDE09",
+                published = "19 сентября в 14:12",
+                likedByMe = false
+            ),
+            Post(
+                id = 3,
+                likes = Random.nextLong(10000),
+                reposts = Random.nextLong(1000),
+                comments = Random.nextLong(1000),
+                views = Random.nextLong(10000,1000000),
+                author = "Нетология. Университет интернет-профессий будущего",
+                content = "Языков программирования много, и выбрать какой-то один бывает нелегко. Собрали подборку статей, которая поможет вам начать, если вы остановили свой выбор на JavaScript.",
+                published = "19 сентября в 10:24",
+                likedByMe = false
+            ),
+            Post(
+                id = 2,
+                likes = Random.nextLong(10000),
+                reposts = Random.nextLong(1000),
+                comments = Random.nextLong(1000),
+                views = Random.nextLong(10000,1000000),
+                author = "Нетология. Университет интернет-профессий будущего",
+                content = "Знаний хватит на всех: на следующей неделе разбираемся с разработкой мобильных приложений, учимся рассказывать истории и составлять PR-стратегию прямо на бесплатных занятиях \uD83D\uDC47",
+                published = "18 сентября в 10:12",
+                likedByMe = false
+            ),
+            Post(
+                id = 1,
+                likes = Random.nextLong(10000),
+                reposts = Random.nextLong(1000),
+                comments = Random.nextLong(1000),
+                views = Random.nextLong(10000,1000000),
+                author = "Нетология. Университет интернет-профессий будущего",
+                content = "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb",
+                published = "21 мая в 18:36",
+                likedByMe = false
+            ),
         )
     }
 
-    private val data = MutableLiveData(defaultPost)
+    private val data = MutableLiveData(defaultPosts)
 
-    override fun get(): LiveData<Post> = data
+    override fun getAll(): LiveData<List<Post>> = data
 
-    override fun like() {
-        val currentPost = data.value ?: return
-        val currentLikes = if (!currentPost.likedByMe) currentPost.likes+1 else currentPost.likes-1
-        data.value = currentPost.copy(likedByMe = !currentPost.likedByMe, likes = currentLikes)
+    override fun likeById(id: Long) {
+        defaultPosts = defaultPosts.map {
+            if (it.id != id) it else it.copy(
+                likedByMe = !it.likedByMe,
+                likes = if (!it.likedByMe) it.likes + 1 else it.likes - 1
+            )
+        }
+        data.value = defaultPosts
     }
 
-    override fun repost() {
-        val currentPost = data.value ?: return
-        val currentReposts = currentPost.reposts+1
-        data.value = currentPost.copy(reposts = currentReposts)
+    override fun repostById(id: Long) {
+        defaultPosts = defaultPosts.map {
+            if (it.id != id) it else it.copy(
+                reposts = it.reposts + 1
+            )
+        }
+        data.value = defaultPosts
     }
+
 }
