@@ -1,25 +1,29 @@
 package adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import dto.Post
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
+import util.AndroidUtils
 
-typealias OnLikeListener = (post: Post) -> Unit
-typealias OnRepostListener = (post: Post) -> Unit
+interface OnInteractionListener {
+    fun onLike(post: Post) {}
+    fun onEdit(post: Post) {}
+    fun onRemove(post: Post) {}
+    fun onRepost(post: Post) {}
+}
 
 class PostsAdapter(
-    private val onLikeListener: OnLikeListener,
-    private val onRepostListener: OnRepostListener
+    private val onInteractionListener: OnInteractionListener
 ) : ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, onLikeListener, onRepostListener)
+        return PostViewHolder(binding, onInteractionListener)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -30,8 +34,7 @@ class PostsAdapter(
 
 class PostViewHolder(
     private val binding: CardPostBinding,
-    private val onLikeListener: OnLikeListener,
-    private val onRepostListener: OnRepostListener
+    private val onInteractionListener: OnInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(post: Post) {
         binding.apply {
@@ -39,38 +42,45 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            likeCount.text = formatNum(post.likes)
-            repostsCount.text = formatNum(post.reposts)
-            commentsCount.text = formatNum(post.comments)
-            viewsCount.text = formatNum(post.views)
+            likeCount.text = AndroidUtils.formatNum(post.likes)
+            repostsCount.text = AndroidUtils.formatNum(post.reposts)
+            commentsCount.text = AndroidUtils.formatNum(post.comments)
+            viewsCount.text = AndroidUtils.formatNum(post.views)
 
             like.setImageResource(
                 if (post.likedByMe) R.drawable.ic_liked else R.drawable.ic_like
             )
 
             like.setOnClickListener {
-                onLikeListener(post)
+                onInteractionListener.onLike(post)
             }
 
             repost.setOnClickListener {
-                onRepostListener(post)
+                onInteractionListener.onRepost(post)
             }
 
+            menu.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.options_post)
+                    setOnMenuItemClickListener { item ->
+                        when (item.itemId) {
+                            R.id.remove -> {
+                                onInteractionListener.onRemove(post)
+                                true
+                            }
+                            R.id.edit -> {
+                                onInteractionListener.onEdit(post)
+                                true
+                            }
+                            else -> false
+                        }
+                    }
+                }.show()
+            }
         }
-    }
 
-
-    private fun formatNum(number: Long): String {
-        val doubleNum = number.toDouble()
-        when {
-            (number >= 1_000_000) -> return String.format("%.1f", doubleNum / 1_000_000) + "M"
-            (number >= 10_000) -> return String.format("%.0f", doubleNum / 1_000) + "K"
-            (number >= 1_000) -> return String.format("%.1f", doubleNum / 1_000) + "K"
-        }
-        return "$number"
     }
 }
-
 
 class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
     override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {

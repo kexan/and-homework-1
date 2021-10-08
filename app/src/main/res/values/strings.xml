@@ -4,4 +4,9 @@
     <string name="avatar">Avatar</string>
     <string name="menu">Menu</string>
     <string name="like">Like</string>
+    <string name="post_text">Post Text</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_remove">Remove</string>
+    <string name="description_post_save">Save</string>
+    <string name="edit_post">Edit post</string>
 </resources>
