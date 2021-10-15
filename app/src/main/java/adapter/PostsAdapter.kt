@@ -53,7 +53,7 @@ class PostViewHolder(
             comment.isChecked = post.commentedByMe
             comment.text = AndroidUtils.formatNum(post.comments)
 
-            viewsCount.text = AndroidUtils.formatNum(post.views)
+            views.text = AndroidUtils.formatNum(post.views)
 
 
             like.setOnClickListener {
