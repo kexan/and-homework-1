@@ -31,7 +31,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="edit_post, edit_icon, post_text, cancel_edit, background" />
+        app:constraint_referenced_ids="edit_post, edit_icon, post_text, cancel_edit, background"
+        tools:visibility="visible"
+        />
 
 
     <androidx.constraintlayout.widget.Barrier

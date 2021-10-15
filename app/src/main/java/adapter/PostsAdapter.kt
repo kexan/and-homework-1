@@ -14,6 +14,7 @@ import util.AndroidUtils
 interface OnInteractionListener {
     fun onLike(post: Post) {}
     fun onEdit(post: Post) {}
+    fun onComment(post: Post) {}
     fun onRemove(post: Post) {}
     fun onRepost(post: Post) {}
 }
@@ -42,17 +43,25 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            likeCount.text = AndroidUtils.formatNum(post.likes)
-            repostsCount.text = AndroidUtils.formatNum(post.reposts)
-            commentsCount.text = AndroidUtils.formatNum(post.comments)
+
+            like.isChecked = post.likedByMe
+            like.text = AndroidUtils.formatNum(post.likes)
+
+            repost.isChecked = post.repostedByMe
+            repost.text = AndroidUtils.formatNum(post.reposts)
+
+            comment.isChecked = post.commentedByMe
+            comment.text = AndroidUtils.formatNum(post.comments)
+
             viewsCount.text = AndroidUtils.formatNum(post.views)
 
-            like.setImageResource(
-                if (post.likedByMe) R.drawable.ic_liked else R.drawable.ic_like
-            )
 
             like.setOnClickListener {
                 onInteractionListener.onLike(post)
+            }
+
+            comment.setOnClickListener{
+                onInteractionListener.onComment(post)
             }
 
             repost.setOnClickListener {

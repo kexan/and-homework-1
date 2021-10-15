@@ -3,4 +3,6 @@
     <dimen name="small_spacing">4dp</dimen>
     <dimen name="common_spacing">16dp</dimen>
     <dimen name="large_spacing">32dp</dimen>
+    <dimen name="menu_button_min_size">24dp</dimen>
+    <dimen name="icon_button_min_size">48dp</dimen>
 </resources>

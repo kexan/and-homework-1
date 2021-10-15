@@ -34,6 +34,10 @@ class MainActivity : AppCompatActivity() {
                 viewModel.repostById(post.id)
             }
 
+            override fun onComment(post: Post) {
+                viewModel.commentById(post.id)
+            }
+
             override fun onRemove(post: Post) {
                 viewModel.removeById(post.id)
             }
