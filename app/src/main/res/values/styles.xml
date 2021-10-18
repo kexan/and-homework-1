@@ -35,4 +35,8 @@
         <item name="android:minHeight">@dimen/menu_button_min_size</item>
     </style>
 
+    <style name="Widget.AppTheme.GreenFab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/green</item>
+    </style>
+
 </resources>

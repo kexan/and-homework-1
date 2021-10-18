@@ -5,4 +5,5 @@
     <dimen name="large_spacing">32dp</dimen>
     <dimen name="menu_button_min_size">24dp</dimen>
     <dimen name="icon_button_min_size">48dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
