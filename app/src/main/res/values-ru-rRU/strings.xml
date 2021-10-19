@@ -16,4 +16,6 @@
     <string name="add_post">Добавить пост</string>
     <string name="error_empty_content">Содержимое не может быть пустым</string>
     <string name="chooser_share_post">Поделиться постом</string>
+    <string name="play_video">Включить видео</string>
+    <string name="video_name">Название видео</string>
 </resources>

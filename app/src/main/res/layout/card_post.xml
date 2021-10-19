@@ -81,6 +81,55 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="content" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="videoThumbnail, playButton, videoName" />
+
+    <ImageView
+        android:id="@+id/videoThumbnail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/thumbnail"
+        app:layout_constraintBottom_toBottomOf="@id/barrier3"
+        app:layout_constraintEnd_toEndOf="@id/content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier2" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/playButton"
+        style="@style/Widget.AppTheme.PlayButtonFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:contentDescription="@string/play_video"
+        app:layout_constraintBottom_toBottomOf="@id/videoThumbnail"
+        app:layout_constraintEnd_toEndOf="@id/videoThumbnail"
+        app:layout_constraintStart_toStartOf="@id/videoThumbnail"
+        app:layout_constraintTop_toTopOf="@id/videoThumbnail"
+        app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
+
+    <TextView
+        android:id="@+id/videoName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_spacing"
+        app:layout_constraintBottom_toBottomOf="@id/barrier3"
+        app:layout_constraintEnd_toEndOf="@id/videoThumbnail"
+        app:layout_constraintStart_toStartOf="@id/videoThumbnail"
+        app:layout_constraintTop_toBottomOf="@+id/videoThumbnail"
+        android:text="@string/video_name"
+        />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="like, comment, repost, views" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/like"
         style="@style/Widget.AppTheme.LikeButton"
@@ -91,7 +140,7 @@
         android:contentDescription="@string/like"
         app:icon="@drawable/ic_like"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/barrier2"
+        app:layout_constraintTop_toTopOf="@id/barrier3"
         tools:checked="true"
         tools:text="52" />
 
@@ -116,8 +165,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/common_spacing"
-        android:contentDescription="@string/repost"
         android:checkable="true"
+        android:contentDescription="@string/repost"
         app:icon="@drawable/ic_baseline_share_24"
         app:layout_constraintBottom_toBottomOf="@id/comment"
         app:layout_constraintStart_toEndOf="@id/comment"

@@ -15,4 +15,6 @@
     <string name="repost">Reposts</string>
     <string name="views">Views</string>
     <string name="add_post">Add post</string>
+    <string name="play_video">Play video</string>
+    <string name="video_name">Video name</string>
 </resources>

@@ -3,16 +3,15 @@ package ru.netology.nmedia
 import adapter.OnInteractionListener
 import adapter.PostsAdapter
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
 import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import dto.Post
-import ru.netology.nmedia.databinding.ActivityEditPostBinding
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.databinding.CardPostBinding
 import viewmodel.PostViewModel
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,13 +26,11 @@ class MainActivity : AppCompatActivity() {
             viewModel.save()
         }
 
-        val editPostBinding = ActivityEditPostBinding.inflate(layoutInflater) //как уже только не пробовал
-
         val adapter = PostsAdapter(object : OnInteractionListener {
             override fun onEdit(post: Post) {
-                editPostBinding.edit.setText(post.content) //не работает
                 viewModel.edit(post)
-                editPostLauncher.launch()
+                editPostLauncher.launch(post.content)
+
             }
 
             override fun onLike(post: Post) {
@@ -51,6 +48,14 @@ class MainActivity : AppCompatActivity() {
                 val shareIntent =
                     Intent.createChooser(intent, getString(R.string.chooser_share_post))
                 startActivity(shareIntent)
+            }
+
+            override fun onPlayVideo(post: Post) {
+                val intent = Intent().apply {
+                    action = Intent.ACTION_VIEW
+                    data = Uri.parse(post.video)
+                }
+                startActivity(intent)
             }
 
             override fun onComment(post: Post) {
@@ -77,5 +82,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 }
 
