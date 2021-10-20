@@ -18,4 +18,5 @@
     <string name="chooser_share_post">Поделиться постом</string>
     <string name="play_video">Включить видео</string>
     <string name="video_name">Название видео</string>
+    <string name="video_preview">Превью видео</string>
 </resources>

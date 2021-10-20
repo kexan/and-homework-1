@@ -59,7 +59,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="avatar,published,menu" />
+        app:constraint_referenced_ids="avatar,published,menu"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="81dp" />
 
     <TextView
         android:id="@+id/content"
@@ -79,19 +81,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="content" />
+        app:constraint_referenced_ids="content"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="302dp" />
 
     <androidx.constraintlayout.widget.Group
-        android:id="@+id/group"
+        android:id="@+id/videoPreview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:constraint_referenced_ids="videoThumbnail, playButton, videoName" />
+        app:constraint_referenced_ids="videoThumbnail, playButton, videoName"
+        app:layout_constraintBottom_toTopOf="@+id/avatar"
+        app:layout_constraintEnd_toStartOf="@+id/avatar"
+        app:layout_constraintStart_toStartOf="@+id/avatar"
+        app:layout_constraintTop_toTopOf="@+id/avatar" />
 
     <ImageView
         android:id="@+id/videoThumbnail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/video_preview"
         android:src="@drawable/thumbnail"
         app:layout_constraintBottom_toBottomOf="@id/barrier3"
         app:layout_constraintEnd_toEndOf="@id/content"
@@ -116,19 +124,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_spacing"
+        android:text="@string/video_name"
         app:layout_constraintBottom_toBottomOf="@id/barrier3"
         app:layout_constraintEnd_toEndOf="@id/videoThumbnail"
         app:layout_constraintStart_toStartOf="@id/videoThumbnail"
-        app:layout_constraintTop_toBottomOf="@+id/videoThumbnail"
-        android:text="@string/video_name"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/videoThumbnail" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="like, comment, repost, views" />
+        app:constraint_referenced_ids="like, comment, repost, views"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="516dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/like"
@@ -186,4 +195,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/repost"
         tools:text="12,4K" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

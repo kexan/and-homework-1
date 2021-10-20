@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".EditPostActivity">
 
+
     <EditText
         android:id="@+id/edit"
         android:layout_width="match_parent"
@@ -13,8 +14,7 @@
         android:background="@android:color/transparent"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        android:padding="@dimen/common_spacing"
-        />
+        android:padding="@dimen/common_spacing" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
