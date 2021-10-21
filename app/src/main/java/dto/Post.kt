@@ -9,6 +9,7 @@ data class Post(
     val comments: Long = 0L,
     val reposts: Long = 0L,
     val views: Long = 0L,
+    val video: String = "",
     val likedByMe: Boolean = false,
     val repostedByMe: Boolean = false,
     val commentedByMe: Boolean = false

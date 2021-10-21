@@ -3,6 +3,7 @@ package adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ interface OnInteractionListener {
     fun onComment(post: Post) {}
     fun onRemove(post: Post) {}
     fun onRepost(post: Post) {}
+    fun onPlayVideo(post: Post) {}
 }
 
 class PostsAdapter(
@@ -39,6 +41,7 @@ class PostViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(post: Post) {
         binding.apply {
+
             avatar.setImageResource(R.drawable.post_avatar)
             author.text = post.author
             published.text = post.published
@@ -55,17 +58,23 @@ class PostViewHolder(
 
             views.text = AndroidUtils.formatNum(post.views)
 
+            videoPreview.isVisible = post.video.isNotBlank()
+
 
             like.setOnClickListener {
                 onInteractionListener.onLike(post)
             }
 
-            comment.setOnClickListener{
+            comment.setOnClickListener {
                 onInteractionListener.onComment(post)
             }
 
             repost.setOnClickListener {
                 onInteractionListener.onRepost(post)
+            }
+
+            playButton.setOnClickListener {
+                onInteractionListener.onPlayVideo(post)
             }
 
             menu.setOnClickListener {

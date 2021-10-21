@@ -16,6 +16,18 @@ class PostRepositoryInMemoryImplementation : PostRepository {
                 reposts = Random.nextLong(1000),
                 comments = Random.nextLong(1000),
                 views = Random.nextLong(10000, 1000000),
+                author = "Тест",
+                content = "Вся суть программирования на С++",
+                video = "https://www.youtube.com/watch?v=3JTwA5IOq7I",
+                published = "19 октября в 18:42",
+                likedByMe = false
+            ),
+            Post(
+                id = nextId++,
+                likes = Random.nextLong(10000),
+                reposts = Random.nextLong(1000),
+                comments = Random.nextLong(1000),
+                views = Random.nextLong(10000, 1000000),
                 author = "Нетология. Университет интернет-профессий будущего",
                 content = "Освоение новой профессии — это не только открывающиеся возможности и перспективы, но и настоящий вызов самому себе. Приходится выходить из зоны комфорта и перестраивать привычный образ жизни: менять распорядок дня, искать время для занятий, быть готовым к возможным неудачам в начале пути. В блоге рассказали, как избежать стресса на курсах профпереподготовки → http://netolo.gy/fPD",
                 published = "23 сентября в 10:12",
@@ -129,8 +141,8 @@ class PostRepositoryInMemoryImplementation : PostRepository {
     override fun repostById(id: Long) {
         posts = posts.map {
             if (it.id != id) it else it.copy(
-                repostedByMe = !it.repostedByMe,
-                reposts = if (!it.repostedByMe) it.reposts + 1 else it.reposts - 1
+                repostedByMe = true,
+                reposts = it.reposts + 1
             )
         }
         data.value = posts
