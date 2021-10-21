@@ -1,17 +1,18 @@
 package viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import dto.Post
 import repository.PostRepository
-import repository.PostRepositoryInMemoryImplementation
+import repository.PostRepositoryFileImplementation
 
 private val empty = Post(
     id = 0
 )
 
-class PostViewModel : ViewModel() {
-    private val repository: PostRepository = PostRepositoryInMemoryImplementation()
+class PostViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: PostRepository = PostRepositoryFileImplementation(application)
     val data = repository.getAll()
     val edited = MutableLiveData(empty)
 
