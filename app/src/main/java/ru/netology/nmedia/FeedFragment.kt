@@ -5,32 +5,38 @@ import adapter.PostsAdapter
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.activity.result.launch
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dto.Post
-import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.databinding.FragmentFeedBinding
 import viewmodel.PostViewModel
 
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        val viewModel: PostViewModel by viewModels()
+class FeedFragment : Fragment() {
 
-        val editPostLauncher = registerForActivityResult(EditPostResultContract()) { result ->
-            result ?: return@registerForActivityResult
-            viewModel.changeContent(result)
-            viewModel.save()
-        }
+    private val viewModel: PostViewModel by viewModels(
+        ownerProducer = ::requireParentFragment
+    )
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val binding = FragmentFeedBinding.inflate(
+            inflater,
+            container,
+            false
+        )
 
         val adapter = PostsAdapter(object : OnInteractionListener {
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
-                editPostLauncher.launch(post.content)
-
+                findNavController().navigate(R.id.action_feedFragment_to_editPostFragment)
             }
 
             override fun onLike(post: Post) {
@@ -65,23 +71,22 @@ class MainActivity : AppCompatActivity() {
             override fun onRemove(post: Post) {
                 viewModel.removeById(post.id)
             }
+
+            override fun onOpenPost(post: Post) {
+                viewModel.edit(post)
+                findNavController().navigate(R.id.action_feedFragment_to_postCardFragment)
+            }
         })
-
         binding.list.adapter = adapter
-
-        viewModel.data.observe(this, adapter::submitList)
-
-        val newPostLauncher = registerForActivityResult(NewPostResultContract()) { result ->
-            result ?: return@registerForActivityResult
-            viewModel.changeContent(result)
-            viewModel.save()
-        }
+        viewModel.data.observe(viewLifecycleOwner, adapter::submitList)
 
         binding.fab.setOnClickListener {
-            newPostLauncher.launch()
+            findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
         }
 
-    }
+        return binding.root
 
+    }
 }
+
 

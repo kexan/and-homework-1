@@ -19,6 +19,7 @@ interface OnInteractionListener {
     fun onRemove(post: Post) {}
     fun onRepost(post: Post) {}
     fun onPlayVideo(post: Post) {}
+    fun onOpenPost(post: Post) {}
 }
 
 class PostsAdapter(
@@ -75,6 +76,10 @@ class PostViewHolder(
 
             playButton.setOnClickListener {
                 onInteractionListener.onPlayVideo(post)
+            }
+
+            content.setOnClickListener {
+                onInteractionListener.onOpenPost(post)
             }
 
             menu.setOnClickListener {
