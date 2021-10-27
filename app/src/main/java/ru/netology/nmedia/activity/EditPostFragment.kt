@@ -38,7 +38,6 @@ class EditPostFragment : Fragment() {
         arguments?.textArg
             ?.let(binding.edit::setText)
 
-//        binding.edit.setText(viewModel.edited.value?.content.toString()) //костыль, не могу понять как работать с textArg
         binding.edit.requestFocus()
         binding.ok.setOnClickListener {
             viewModel.changeContent(binding.edit.text.toString())

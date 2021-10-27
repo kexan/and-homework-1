@@ -19,7 +19,7 @@ class AppActivity : AppCompatActivity(R.layout.activity_app) {
             }
 
             val text = it.getStringExtra(Intent.EXTRA_TEXT)
-            if (!text.isNullOrBlank()) {
+            if (text.isNullOrBlank()) {
                 return@let
             }
 
