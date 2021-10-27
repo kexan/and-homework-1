@@ -1,11 +1,11 @@
-package viewmodel
+package ru.netology.nmedia.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import dto.Post
-import repository.PostRepository
-import repository.PostRepositoryFileImplementation
+import ru.netology.nmedia.dto.Post
+import ru.netology.nmedia.repository.PostRepository
+import ru.netology.nmedia.repository.PostRepositoryFileImplementation
 
 private val empty = Post(
     id = 0

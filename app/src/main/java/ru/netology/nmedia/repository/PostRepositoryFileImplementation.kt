@@ -1,11 +1,11 @@
-package repository
+package ru.netology.nmedia.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import dto.Post
+import ru.netology.nmedia.dto.Post
 
 class PostRepositoryFileImplementation(
     private val context: Context

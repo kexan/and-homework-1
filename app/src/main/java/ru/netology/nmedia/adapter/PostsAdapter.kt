@@ -1,4 +1,4 @@
-package adapter
+package ru.netology.nmedia.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,10 +7,10 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import dto.Post
-import ru.netology.nmedia.R
-import ru.netology.nmedia.databinding.CardPostBinding
-import util.AndroidUtils
+import ru.netology.activity.R
+import ru.netology.activity.databinding.CardPostBinding
+import ru.netology.nmedia.dto.Post
+import ru.netology.nmedia.util.AndroidUtils
 
 interface OnInteractionListener {
     fun onLike(post: Post) {}

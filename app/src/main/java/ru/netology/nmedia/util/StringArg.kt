@@ -1,4 +1,4 @@
-package util
+package ru.netology.nmedia.util
 
 import android.os.Bundle
 import kotlin.properties.ReadWriteProperty

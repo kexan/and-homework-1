@@ -1,4 +1,4 @@
-package ru.netology.nmedia
+package ru.netology.nmedia.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import ru.netology.nmedia.databinding.FragmentNewPostBinding
-import util.AndroidUtils
-import util.StringArg
-import viewmodel.PostViewModel
+import ru.netology.activity.R
+import ru.netology.activity.databinding.FragmentEditPostBinding
+import ru.netology.nmedia.util.AndroidUtils
+import ru.netology.nmedia.util.StringArg
+import ru.netology.nmedia.viewmodel.PostViewModel
 
-class NewPostFragment : Fragment() {
+
+class EditPostFragment : Fragment() {
 
     companion object {
         var Bundle.textArg: String? by StringArg
@@ -27,8 +29,8 @@ class NewPostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentNewPostBinding.inflate(
-            inflater,
+        val binding = FragmentEditPostBinding.inflate(
+            layoutInflater,
             container,
             false
         )
@@ -36,13 +38,16 @@ class NewPostFragment : Fragment() {
         arguments?.textArg
             ?.let(binding.edit::setText)
 
+//        binding.edit.setText(viewModel.edited.value?.content.toString()) //костыль, не могу понять как работать с textArg
         binding.edit.requestFocus()
         binding.ok.setOnClickListener {
             viewModel.changeContent(binding.edit.text.toString())
             viewModel.save()
             AndroidUtils.hideKeyboard(requireView())
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_editPostFragment_to_feedFragment)
         }
+
         return binding.root
     }
+
 }
