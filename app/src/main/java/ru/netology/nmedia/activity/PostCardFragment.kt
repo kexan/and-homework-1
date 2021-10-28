@@ -15,6 +15,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.activity.R
 import ru.netology.activity.databinding.FragmentCardPostBinding
+import ru.netology.nmedia.activity.EditPostFragment.Companion.textArg
+import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.util.AndroidUtils
 import ru.netology.nmedia.viewmodel.PostViewModel
 
@@ -37,132 +39,101 @@ class PostCardFragment : Fragment() {
             false
         )
 
-        viewModel.edited.observe(viewLifecycleOwner, { post ->
+        val currentPost = viewModel.edited.value ?: Post()
+
+        viewModel.edited.observe(viewLifecycleOwner, {
+
             binding.apply {
                 avatar.setImageResource(R.drawable.post_avatar)
-                author.text = post.author
-                published.text = post.published
-                content.text = post.content
+                author.text = it.author
+                published.text = it.published
+                content.text = it.content
                 content.movementMethod = ScrollingMovementMethod()
 
-                like.isChecked = post.likedByMe
-                like.text = AndroidUtils.formatNum(post.likes)
+                like.isChecked = it.likedByMe
+                like.text = AndroidUtils.formatNum(it.likes)
 
-                repost.isChecked = post.repostedByMe
-                repost.text = AndroidUtils.formatNum(post.reposts)
+                repost.isChecked = it.repostedByMe
+                repost.text = AndroidUtils.formatNum(it.reposts)
 
-                comment.isChecked = post.commentedByMe
-                comment.text = AndroidUtils.formatNum(post.comments)
+                comment.isChecked = it.commentedByMe
+                comment.text = AndroidUtils.formatNum(it.comments)
 
-                views.text = AndroidUtils.formatNum(post.views)
+                views.text = AndroidUtils.formatNum(it.views)
 
-                videoPreview.isVisible = post.video.isNotBlank()
-
-                like.setOnClickListener {
-                    viewModel.likeById(post.id)
-                }
-
-                comment.setOnClickListener {
-                    viewModel.commentById(post.id)
-                }
-
-                repost.setOnClickListener {
-                    viewModel.repostById(post.id)
-                }
-
-                playButton.setOnClickListener {
-                    val intent = Intent().apply {
-                        action = Intent.ACTION_VIEW
-                        data = Uri.parse(post.video)
-                    }
-                    startActivity(intent)
-                }
-
-
-                menu.setOnClickListener {
-                    PopupMenu(it.context, it).apply {
-                        inflate(R.menu.options_post)
-                        setOnMenuItemClickListener { item ->
-                            when (item.itemId) {
-                                R.id.remove -> {
-                                    findNavController().navigate(R.id.action_postCardFragment_to_feedFragment)
-                                    true
-                                }
-                                R.id.edit -> {
-                                    findNavController().navigate(R.id.action_postCardFragment_to_editPostFragment)
-                                    true
-                                }
-                                else -> false
-                            }
-                        }
-                    }.show()
-                }
+                videoPreview.isVisible = it.video.isNotBlank()
             }
         })
+
+        with(binding) {
+
+            like.setOnClickListener {
+                viewModel.likeById(currentPost.id)
+                update(currentPost.id)
+            }
+
+            comment.setOnClickListener {
+                viewModel.commentById(currentPost.id)
+                update(currentPost.id)
+            }
+
+            repost.setOnClickListener {
+                viewModel.repostById(currentPost.id)
+
+                val intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, currentPost.content)
+                    type = "text/plain"
+                }
+
+                val shareIntent =
+                    Intent.createChooser(intent, getString(R.string.chooser_share_post))
+                startActivity(shareIntent)
+
+                update(currentPost.id)
+            }
+
+            playButton.setOnClickListener {
+                val intent = Intent().apply {
+                    action = Intent.ACTION_VIEW
+                    data = Uri.parse(currentPost.video)
+                }
+                startActivity(intent)
+            }
+
+
+            menu.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.options_post)
+                    setOnMenuItemClickListener { item ->
+                        when (item.itemId) {
+                            R.id.remove -> {
+                                findNavController().navigate(R.id.action_postCardFragment_to_feedFragment)
+                                true
+                            }
+                            R.id.edit -> {
+                                findNavController().navigate(
+                                    R.id.action_postCardFragment_to_editPostFragment,
+                                    Bundle().apply {
+                                        textArg = currentPost.content
+                                    }
+                                )
+                                true
+                            }
+                            else -> false
+                        }
+                    }
+                }.show()
+            }
+        }
+
+
         return binding.root
+    }
+
+    private fun update(id: Long) {
+        viewModel.edited.value = viewModel.findById(id)
     }
 }
 
-//private fun bind(post: Post, binding: FragmentCardPostBinding) {
-//
-//    binding.apply {
-//        avatar.setImageResource(R.drawable.post_avatar)
-//        author.text = post.author
-//        published.text = post.published
-//        content.text = post.content
-//        content.movementMethod = ScrollingMovementMethod()
-//
-//        like.isChecked = post.likedByMe
-//        like.text = AndroidUtils.formatNum(post.likes)
-//
-//        repost.isChecked = post.repostedByMe
-//        repost.text = AndroidUtils.formatNum(post.reposts)
-//
-//        comment.isChecked = post.commentedByMe
-//        comment.text = AndroidUtils.formatNum(post.comments)
-//
-//        views.text = AndroidUtils.formatNum(post.views)
-//
-//        videoPreview.isVisible = post.video.isNotBlank()
-//
-//        like.setOnClickListener {
-//            viewModel.likeById(post.id)
-//        }
-//
-//        comment.setOnClickListener {
-//            viewModel.commentById(post.id)
-//        }
-//
-//        repost.setOnClickListener {
-//            viewModel.repostById(post.id)
-//        }
-//
-//        playButton.setOnClickListener {
-//            val intent = Intent().apply {
-//                action = Intent.ACTION_VIEW
-//                data = Uri.parse(post.video)
-//            }
-//            startActivity(intent)
-//        }
-//
-//        menu.setOnClickListener {
-//            PopupMenu(it.context, it).apply {
-//                inflate(R.menu.options_post)
-//                setOnMenuItemClickListener { item ->
-//                    when (item.itemId) {
-//                        R.id.remove -> {
-//                            findNavController().navigate(R.id.action_postCardFragment_to_feedFragment)
-//                            true
-//                        }
-//                        R.id.edit -> {
-//                            findNavController().navigate(R.id.action_postCardFragment_to_editPostFragment)
-//                            true
-//                        }
-//                        else -> false
-//                    }
-//                }
-//            }.show()
-//        }
-//    }
-//}
 

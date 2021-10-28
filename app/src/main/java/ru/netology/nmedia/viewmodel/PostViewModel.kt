@@ -37,6 +37,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun findById(id: Long) = repository.findById(id)
     fun likeById(id: Long) = repository.likeById(id)
     fun repostById(id: Long) = repository.repostById(id)
     fun removeById(id: Long) = repository.removeById(id)
