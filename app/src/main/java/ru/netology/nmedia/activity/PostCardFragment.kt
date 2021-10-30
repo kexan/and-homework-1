@@ -126,8 +126,6 @@ class PostCardFragment : Fragment() {
                 }.show()
             }
         }
-
-
         return binding.root
     }
 
