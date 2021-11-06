@@ -19,4 +19,9 @@
     <string name="play_video">Включить видео</string>
     <string name="video_name">Название видео</string>
     <string name="video_preview">Превью видео</string>
+    <string name="google_play_unavailable">Google API недоступно</string>
+    <string name="notification_user_liked">Пользователь %1$s лайкнул пост %2$s</string>
+    <string name="channel_remote_name">Уведомления сервера</string>
+    <string name="channel_remote_description">Уведомления удаленного сервера</string>
+    <string name="notification_new_post">Пользователь %1$s опубликовал новый пост:</string>
 </resources>
