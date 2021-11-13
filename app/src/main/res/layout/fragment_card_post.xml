@@ -59,9 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="avatar,published,menu"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="81dp" />
+        app:constraint_referenced_ids="avatar,published,menu" />
 
     <TextView
         android:id="@+id/content"
@@ -70,8 +68,8 @@
         android:layout_marginTop="@dimen/common_spacing"
         android:layout_marginBottom="@dimen/common_spacing"
         android:autoLink="web"
-        android:scrollbars="vertical"
         android:maxLines="20"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="@id/barrier2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -137,9 +135,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="like, comment, repost, views"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="516dp" />
+        app:constraint_referenced_ids="like, comment, repost, views" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/like"
